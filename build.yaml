@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      g_formz|genericInputGeneratorBuilder:
+        enabled: true
+        generate_for:
+          - lib/src/generic_test_input.dart
+      formz|tupleGeneratorBuilder:
+        enabled: false
+      formz|mergeGeneratorBuilder:
+        enabled: false
+      formz|consumableFuncGeneratorBuilder:
+        enabled: false
