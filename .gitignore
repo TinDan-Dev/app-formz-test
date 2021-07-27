@@ -9,12 +9,6 @@
 .history
 .svn/
 
-# generated files
-*.g.dart
-*.mocks.dart
-*.config.dart
-*.freezed.dart
-
 # IntelliJ related
 *.iml
 *.ipr
