@@ -91,7 +91,7 @@ void testStateInputMutation<T>(
   String description, {
   required Input pure,
   required Input Function(Input pure, T input) mutator,
-  required Map<T, Object> inputs,
+  required Map<T, Object?> inputs,
   InputWrapper<T> wrapper = wrapValue,
 }) {
   group(description, () {
@@ -103,7 +103,7 @@ void testStateInputMutation<T>(
 
         expect(
           result,
-          io.value,
+          io.value.ignoreError(),
           reason: 'expected the result to match the description',
         );
       });
