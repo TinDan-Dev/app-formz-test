@@ -3,7 +3,7 @@ description: Test utils for the formz library
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: '1.0.1+2'
+version: '1.0.2'
 
 environment:
   sdk: '>=2.13.0 <3.0.0'
@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc: ^7.0.1
 
   formz:
+#    path: ../app-formz
     git: ssh://git@github.com/TinDan-Dev/app-formz.git
 
 dev_dependencies:
@@ -28,4 +29,5 @@ dev_dependencies:
   bloc_test: ^8.0.2
 
   g_formz:
+#    path: ../app-g-formz
     git: ssh://git@github.com/TinDan-Dev/app-g-formz.git
