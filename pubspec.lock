@@ -231,12 +231,10 @@ packages:
   formz:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "14aade724ebc678c789f0d6baa4ddf2012633e98"
-      url: "ssh://git@github.com/TinDan-Dev/app-formz.git"
-    source: git
-    version: "1.0.1"
+      path: "../app-formz"
+      relative: true
+    source: path
+    version: "1.0.1+1"
   freezed_annotation:
     dependency: transitive
     description:
@@ -254,11 +252,9 @@ packages:
   g_formz:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: c1b7697928fae1552e4902541d0ffcfe388f566c
-      url: "ssh://git@github.com/TinDan-Dev/app-g-formz.git"
-    source: git
+      path: "../app-g-formz"
+      relative: true
+    source: path
     version: "1.0.1"
   glob:
     dependency: transitive
