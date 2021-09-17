@@ -2,8 +2,8 @@ library formz_test;
 
 export 'package:formz/formz.dart' hide equals, isTrue, isFalse, select;
 
-export 'src/consumable_matcher.dart';
 export 'src/dummy_failure.dart';
+export 'src/either_matcher.dart';
 export 'src/form_test_utils.dart';
 export 'src/generic_test_input.dart';
 export 'src/input_matcher.dart';
