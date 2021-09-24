@@ -25,14 +25,14 @@ class _EitherMatcher extends AsyncMatcher {
       description.add('Either should be right');
 
       rightMatcher.let((some) {
-        description.add(' and should match');
+        description.add(' and should match ');
         some.describe(description);
       });
     } else {
       description.add('Either should be left');
 
       leftMatcher.let((some) {
-        description.add(' and should match');
+        description.add(' and should match ');
         some.describe(description);
       });
     }
@@ -56,12 +56,12 @@ class _EitherMatcher extends AsyncMatcher {
   FutureOr<String?> _matchEither(Either either) {
     return either.consume(
       onRight: (value) {
-        if (!right) return 'was not right';
+        if (!right) return 'was not left ($value)';
 
         return match(rightMatcher, value);
       },
       onLeft: (value) {
-        if (right) return 'was not left';
+        if (right) return 'was not right ($value)';
 
         return match(leftMatcher, value);
       },
@@ -71,12 +71,12 @@ class _EitherMatcher extends AsyncMatcher {
   FutureOr<String?> _matchEitherFuture(EitherFuture either) {
     return either.consume(
       onRight: (value) {
-        if (!right) return 'was not right';
+        if (!right) return 'was not left ($value)';
 
         return match(rightMatcher, value);
       },
       onLeft: (value) {
-        if (right) return 'was not left';
+        if (right) return 'was not right ($value)';
 
         return match(leftMatcher, value);
       },
