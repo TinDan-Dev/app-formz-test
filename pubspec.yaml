@@ -15,8 +15,8 @@ dependencies:
   flutter_bloc: ^7.0.1
 
   formz:
-#    path: ../app-formz
-    git: ssh://git@github.com/TinDan-Dev/app-formz.git
+    path: ../app-formz
+#    git: ssh://git@github.com/TinDan-Dev/app-formz.git
 
 dev_dependencies:
   flutter_test:
@@ -29,5 +29,5 @@ dev_dependencies:
   bloc_test: ^8.0.2
 
   g_formz:
-#    path: ../app-g-formz
-    git: ssh://git@github.com/TinDan-Dev/app-g-formz.git
+    path: ../app-g-formz
+#    git: ssh://git@github.com/TinDan-Dev/app-g-formz.git

@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart' hide isTrue, isFalse, equals, select;
 
+import 'either_matcher.dart';
 import 'select_matcher.dart';
 
 void testFormInput<C extends FormCubit>(
@@ -52,7 +53,7 @@ void testFormSubmission<C extends FormCubit>(
   required void Function(C) configureSuccess(),
   required void Function(C) configureFailure(),
   required FormState validState,
-  required Future<bool> Function(C cubit) action,
+  required Future<Result<void>> Function(C cubit) action,
 }) {
   group(description, () {
     group('success', () {
@@ -66,21 +67,16 @@ void testFormSubmission<C extends FormCubit>(
 
       test('should return true', () async {
         cubit.emit(validState);
-        expect(await action(cubit), isTrue);
+        expect(await action(cubit), isRight);
       });
 
       blocTest<C, FormState>(
         'should always emit submissionInProgress first when called',
         build: () => cubit,
         seed: () => validState,
-        act: (cubit) {
-          return action(cubit);
-        },
+        act: (cubit) => action(cubit),
         wait: const Duration(milliseconds: 1),
-        expect: () => contains(select<FormState>(
-          (state) => state.submission,
-          isTrue,
-        )),
+        expect: () => contains(select<FormState>((state) => state.submission, isTrue)),
         verify: (cubit) => verify(cubit),
       );
 
@@ -110,7 +106,7 @@ void testFormSubmission<C extends FormCubit>(
 
       test('should return false', () async {
         cubit.emit(validState);
-        expect(await action(cubit), isFalse);
+        expect(await action(cubit), isLeft);
       });
 
       blocTest<C, FormState>(
@@ -119,13 +115,7 @@ void testFormSubmission<C extends FormCubit>(
         seed: () => validState,
         act: (cubit) => action(cubit),
         wait: const Duration(milliseconds: 1),
-        expect: () => [
-          select<FormState>(
-            (state) => state.submission,
-            isTrue,
-          ),
-          isA<FormState>()
-        ],
+        expect: () => [select<FormState>((state) => state.submission, isTrue), isA<FormState>()],
         verify: (cubit) => verify(cubit),
       );
 
@@ -137,10 +127,7 @@ void testFormSubmission<C extends FormCubit>(
         skip: 1,
         wait: const Duration(milliseconds: 1),
         expect: () => [
-          select<FormState>(
-            (state) => state.failure,
-            isNotNull,
-          ),
+          select<FormState>((state) => state.failure, isNotNull),
         ],
         verify: (cubit) => verify(cubit),
       );
