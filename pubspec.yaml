@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^7.0.1
+  freezed_annotation: '>=0.14.2 <0.15.0'
 
   formz:
     path: ../app-formz
@@ -23,6 +24,7 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.0.5
+  freezed: '>=0.14.2 <0.15.0'
 
   lint: ^1.5.3
 
