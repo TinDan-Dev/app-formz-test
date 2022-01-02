@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formz/formz.dart';
 // ignore: implementation_imports
-import 'package:test_api/src/frontend/async_matcher.dart';
+import 'package:test_api/src/expect/async_matcher.dart';
 
 import 'utils.dart';
 
