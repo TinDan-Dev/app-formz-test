@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   bloc:
     dependency: transitive
     description:
@@ -112,7 +112,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -231,10 +231,12 @@ packages:
   formz:
     dependency: "direct main"
     description:
-      path: "../app-formz"
-      relative: true
-    source: path
-    version: "1.0.3"
+      path: "."
+      ref: HEAD
+      resolved-ref: "3ad03d606bfe5d6ac1fb3416722de98660cdbe18"
+      url: "https://git@github.com/TinDan-Dev/app-formz.git"
+    source: git
+    version: "1.0.4"
   freezed:
     dependency: "direct dev"
     description:
@@ -259,9 +261,11 @@ packages:
   g_formz:
     dependency: "direct dev"
     description:
-      path: "../app-g-formz"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: b5d6143dfcafcc0e1eeab385c71a7ddc41382997
+      url: "https://git@github.com/TinDan-Dev/app-g-formz.git"
+    source: git
     version: "1.0.3"
   glob:
     dependency: transitive
@@ -332,7 +336,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   meta:
     dependency: transitive
     description:
@@ -526,21 +530,21 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.17.10"
+    version: "1.17.12"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   test_core:
     dependency: transitive
     description:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.2"
   timing:
     dependency: transitive
     description:
@@ -561,7 +565,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   vm_service:
     dependency: transitive
     description:
@@ -598,5 +602,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.0 <3.0.0"
+  dart: ">=2.15.0 <3.0.0"
   flutter: ">=1.16.0"
