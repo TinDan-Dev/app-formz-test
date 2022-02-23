@@ -3,14 +3,16 @@ description: Test utils for the formz library
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: '1.0.4'
+version: '1.0.5'
 
 environment:
-  sdk: '>=2.13.0 <3.0.0'
+  sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+
+  flutter_lints: '>=1.0.4'
 
   flutter_bloc: ^7.0.1
   freezed_annotation: ^1.0.0
@@ -22,11 +24,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  build_runner: ^2.0.5
-  freezed: ^0.14.2
-
-  lint: ^1.5.3
 
   bloc_test: ^8.0.2
 

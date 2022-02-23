@@ -1,7 +1,14 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:formz/formz.dart' hide isTrue, isFalse, select, equals;
+import 'package:formz/formz.dart';
 
-import 'select_matcher.dart';
+const testInputId = InputIdentifier<String>.named('test');
+
+Input<String> createTestInput(
+  String value, {
+  InputIdentifier<String> id = testInputId,
+  bool valid = true,
+  bool pure = false,
+}) =>
+    createInput((_) => valid, value: value, id: id, pure: pure);
 
 final isPure = pureMatches(isTrue);
 
@@ -9,12 +16,7 @@ final isValid = validMatches(isTrue);
 
 final isInvalid = validMatches(isFalse);
 
-Matcher genericErrorContainsKey(Object key) => genericErrorContainsKeys([key]);
-
-Matcher genericErrorContainsKeys(List<Object> keys) =>
-    errorMatches(select<GenericInputError>((error) => error.keys, containsAll(keys)));
-
-InputMatcher errorMatches(Object? input) => inputMatches(error: input ?? isNull);
+InputMatcher failureMatches(Object? input) => inputMatches(failure: input ?? isNull);
 
 InputMatcher valueMatches(Object? input) => inputMatches(value: input ?? isNull);
 
@@ -23,12 +25,12 @@ InputMatcher pureMatches(Object? input) => inputMatches(pure: input ?? isNull);
 InputMatcher validMatches(Object? input) => inputMatches(valid: input ?? isNull);
 
 InputMatcher inputMatches({
-  Object? error,
+  Object? failure,
   Object? value,
   Object? pure,
   Object? valid,
 }) =>
-    InputMatcher._(error, value, pure, valid);
+    InputMatcher._(failure, value, pure, valid);
 
 class _DummyMatcher extends Matcher {
   @override
@@ -42,13 +44,13 @@ class _DummyMatcher extends Matcher {
 }
 
 class InputMatcher extends Matcher {
-  final Object? error;
+  final Object? failure;
   final Object? value;
   final Object? pure;
   final Object? valid;
 
-  InputMatcher._(this.error, this.value, this.pure, this.valid)
-      : assert(error != null || value != null || pure != null || valid != null);
+  InputMatcher._(this.failure, this.value, this.pure, this.valid)
+      : assert(failure != null || value != null || pure != null || valid != null);
 
   void _addDescription(String name, Object? value, Description description) {
     if (value == null) return;
@@ -64,7 +66,7 @@ class InputMatcher extends Matcher {
 
   @override
   Description describe(Description description) {
-    _addDescription('error', error, description);
+    _addDescription('failure', failure, description);
     _addDescription('value', value, description);
     _addDescription('pure', pure, description);
     _addDescription('valid', valid, description);
@@ -82,7 +84,7 @@ class InputMatcher extends Matcher {
   @override
   bool matches(item, Map matchState) {
     if (item is Input) {
-      return _matchProperty(error, item.error, matchState) &&
+      return _matchProperty(failure, item.failure, matchState) &&
           _matchProperty(value, item.value, matchState) &&
           _matchProperty(pure, item.pure, matchState) &&
           _matchProperty(value, item.value, matchState);

@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 
 class FakeFailure extends Failure with EquatableMixin {
   final int index;
-  const FakeFailure({
+  FakeFailure({
     this.index = 0,
     Object? cause,
     StackTrace? trace,
