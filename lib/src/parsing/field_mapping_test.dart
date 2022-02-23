@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_catching_errors, avoid_print
+
 import 'package:flutter_test/flutter_test.dart';
 
 part 'field_mapping.dart';
@@ -55,7 +57,7 @@ void fieldMappingTest<Source, Result>(
   void onInvalid(Source source) {
     expect(
       () => convert(source),
-      throwsA(exceptionTypes.isEmpty ? isA<Exception>() : anyOf(exceptionTypes)),
+      throwsA(exceptionTypes.isEmpty ? anyOf(isA<Exception>(), isA<AssertionError>()) : anyOf(exceptionTypes)),
       reason: createReason(
         'exception thrown by conversion',
         causingField: null,
@@ -66,13 +68,25 @@ void fieldMappingTest<Source, Result>(
   }
 
   void onValid(Source source) {
-    final result = convert(source);
+    final Result result;
+    try {
+      result = convert(source);
+    } catch (e) {
+      fail(createReason(
+            'a valid conversion',
+            actual: 'Exception: $e',
+            causingField: null,
+            source: source,
+            valid: true,
+          ) ??
+          e.toString());
+    }
 
     for (final field in fields) {
       if (field.shouldMatch(source)) {
         expect(
+          result,
           field.checkResultType(result),
-          isTrue,
           reason: createReason(
             'result of type ${field.resultTypeStr()}',
             actual: 'Type ${result.runtimeType}',
@@ -101,12 +115,25 @@ void fieldMappingTest<Source, Result>(
   }
 
   void _iterateSources({
-    required Source source,
+    required Source sourceProvider(),
     required List<GenericFieldMapping<Source>> invalidFields,
     required int index,
   }) {
     if (index >= fields.length) {
-      final invalid = invalidFields.any((e) => e.shouldMatch(source)) || invalidations.any((e) => e(source));
+      final bool invalid;
+      final Source source;
+
+      try {
+        source = sourceProvider();
+
+        invalid = invalidFields.any((e) => e.shouldMatch(source)) || invalidations.any((e) => e(source));
+      } on AssertionError catch (e) {
+        if (withReason) {
+          print('Skipping input due to: $e');
+        }
+
+        return;
+      }
 
       if (invalid) {
         onInvalid(source);
@@ -121,7 +148,7 @@ void fieldMappingTest<Source, Result>(
 
     for (final value in field.values) {
       _iterateSources(
-        source: field.setSourceField(source, value),
+        sourceProvider: () => field.setSourceField(sourceProvider(), value),
         invalidFields: invalidFields,
         index: index + 1,
       );
@@ -129,7 +156,7 @@ void fieldMappingTest<Source, Result>(
 
     for (final value in field.invalidValues) {
       _iterateSources(
-        source: field.setSourceField(source, value),
+        sourceProvider: () => field.setSourceField(sourceProvider(), value),
         invalidFields: invalidFields + [field],
         index: index + 1,
       );
@@ -142,7 +169,7 @@ void fieldMappingTest<Source, Result>(
     expect(combinations < 1000000, isTrue, reason: 'The combinations should not exceed 1000000');
 
     _iterateSources(
-      source: initialSource,
+      sourceProvider: () => initialSource,
       invalidFields: [],
       index: 0,
     );

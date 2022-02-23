@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:formz/formz.dart' hide isTrue, isFalse, select, equals;
+import 'package:formz/formz.dart';
 
 import 'input_matcher.dart';
 
-InputMatcher wrapError(Object? _, Object? matcher) => errorMatches(matcher);
+InputMatcher wrapFailure(Object? _, Object? matcher) => failureMatches(matcher);
 
 InputMatcher wrapValue(Object? _, Object? matcher) => valueMatches(matcher);
 
@@ -35,7 +35,7 @@ void testInput<T>(
   required Input Function(T input) buildDirty,
   required Input Function(T input) buildPure,
   required Map<T, Object?> inputs,
-  InputWrapper<T> wrapper = wrapError,
+  InputWrapper<T> wrapper = wrapFailure,
 }) {
   final matchers = _inputToMatcher(inputs, wrapper);
 
@@ -51,7 +51,7 @@ void testInput<T>(
             reason: 'expected the result to match the description',
           );
           expect(
-            result.error,
+            result.failure,
             isNull,
             reason: 'expected error to be none',
           );

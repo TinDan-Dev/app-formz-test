@@ -73,7 +73,7 @@ class FieldMapping<Source, SourceType, Result> {
 
   bool shouldMatch(Source source) => _shouldMatch(source);
 
-  bool checkResultType(dynamic result) => result is Result;
+  Matcher checkResultType(dynamic result) => isA<Result>();
 
   String resultTypeStr() => '$Result';
 }
